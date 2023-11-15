@@ -7,7 +7,7 @@ l = pd.Series([1, 2, 3, 4, 5])
 l.index
 k = l.values
 l.index = ['a', 'b', 'c', 'd', 'e']
-
+l
 # DataFrame
 df = pd.DataFrame({'a': [1, 2, 3, 4, 5], 'b': [2, 3, 4, 5, 6]})
 df = pd.DataFrame([[1, 2, 3, 4, 5], [2, 3, 4, 5, 6]], columns=['a', 'b', 'c', 'd', 'e'], index=['a', 'b'])

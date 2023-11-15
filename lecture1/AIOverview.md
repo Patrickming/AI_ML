@@ -145,7 +145,73 @@ The steps are divided into：
 
 ### 1.The birth of artificial intelligence (1943-1956)
 
+#### cybernetics
+
+cybernetics：
+
+![image-20231115140212325](D:\sl\projects\AIandML\AI_ML\lecture1\assets\image-20231115140212325.png)
+
+information theory:
+
+![image-20231115140227130](D:\sl\projects\AIandML\AI_ML\lecture1\assets\image-20231115140227130.png)
+
+#### Early neural networks
+
+The first neural network machine — SNARC
+
+- Stochastic Neural Simulation Reinforcement Calculator: rat - in - a - maze Neural Network Simulator
+- he first connectionist neural network learning machine, designed to be " rewarded " in favor of recently used paths
+- 40 neurons form a randomly connected network, each neuron is implemented by a vacuum tube
+
+#### Dartmouth 
+
+This conference marks the birth of artificial intelligence
+
+The definition of artificial intelligence gave birth to the artificial intelligence revolution
+
+The meeting advocated : " Every aspect of learning or any other characteristic of intelligence should be accurately described so that machines can simulate it . "20New Jersey Institute of Technology
+
+
+
 ### 2.golden age (1956-1974)
+
+#### search-based reasoning
+
+- Use brute force search solution :
+  - stuck in dead end
+  -  Backtrace
+- Defects - When the problem becomes complex, the parameters explode exponentially
+- Solution : Heuristics that narrow the search by removing detours that are unlikely to lead to the correct answer
+
+#### Natural Language Processing 
+
+![image-20231115143915019](D:\sl\projects\AIandML\AI_ML\lecture1\assets\image-20231115143915019.png)
+
+- Limitations: Ambiguity and uncertainty in real-world environments
+- Latest trends : Statistical natural language processing , combined with automatic machine learning to obtain language knowledge
+
+#### Microworld
+
+Microworlds: Minsky created the concept of blocks world to simplify the real world
+
+- Example : Smooth planes and perfect rigid bodies in physics
+
+The concept of Microworld lays the foundation for the subsequent development of computer vision
+
+![image-20231115144424790](D:\sl\projects\AIandML\AI_ML\lecture1\assets\image-20231115144424790.png)
+
+
+
+#### computer vision
+
+- Recognition _ _
+  - Identification _
+  - Content-based image extraction
+  - pose estimation
+- sports
+  - Autonomous driving
+  - Image tracking
+- Image restoration
 
 ### 3.first low point (1974-1980)
 
