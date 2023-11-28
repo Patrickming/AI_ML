@@ -21,10 +21,14 @@ def datasets_demo():
     print("查看数据集描述：\n", iris["DESCR"])
     print("查看特征值的名字：\n", iris.feature_names)
     print("查看特征值：\n", iris.data, iris.data.shape)
+    print("查看目标值：\n", iris.target, iris.target.shape)
 
-    # 数据集划分
+    # 数据集划分 test_size=0.2测试集比例 random_state种子设置
     x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.2, random_state=22)
     print("训练集的特征值：\n", x_train, x_train.shape)
+    print("测试集的特征值：\n", x_test, x_test.shape)
+    print("训练集的目标值：\n", y_train, y_train.shape)
+    print("测试集的目标值：\n", y_test, y_test.shape)
 
     return None
 
@@ -41,7 +45,7 @@ def dict_demo():
     # 2、调用fit_transform()
     data_new = transfer.fit_transform(data)
     print("data_new:\n", data_new.toarray(), type(data_new))
-    print("特征名字：\n", transfer.get_feature_names())
+    print("特征名字：\n", transfer.get_feature_names_out())
 
     return None
 
@@ -142,12 +146,12 @@ def minmax_demo():
     :return:
     """
     # 1、获取数据
-    data = pd.read_csv("dating.txt")
+    data = pd.read_csv("Machine_Learning/day1/dating.txt")
     data = data.iloc[:, :3]
     print("data:\n", data)
 
     # 2、实例化一个转换器类
-    transfer = MinMaxScaler(feature_range=[2, 3])
+    transfer = MinMaxScaler(feature_range=[2, 3]) # 默认feature_range=[0,1]
 
     # 3、调用fit_transform
     data_new = transfer.fit_transform(data)
@@ -180,18 +184,23 @@ def variance_demo():
     :return:
     """
     # 1、获取数据
-    data = pd.read_csv("factor_returns.csv")
-    data = data.iloc[:, 1:-2]
+    data = pd.read_csv("Machine_Learning/day1/factor_returns.csv")
+    data = data.iloc[:, 1:-2] # 去掉最后两列目标值
     print("data:\n", data)
 
     # 2、实例化一个转换器类
-    transfer = VarianceThreshold(threshold=10)
+    transfer = VarianceThreshold(threshold=10) # 越小越苛刻
 
     # 3、调用fit_transform
     data_new = transfer.fit_transform(data)
     print("data_new:\n", data_new, data_new.shape)
 
     # 计算某两个变量之间的相关系数
+    """
+statistic: 这是皮尔逊相关系数的值，范围从-1到1。在您的例子中，它是-0.004389322779936285，表示data["pe_ratio"]和data["pb_ratio"]两个数据序列之间的相关性非常弱且接近于无。值为负表示它们之间的关系呈微弱的负相关，即一个变量的增加倾向于与另一个变量的减少相关联，但由于相关性接近于0，这种关系极其微弱。
+pvalue: 这是检验统计量的p值，它提供了相关性显著性的度量。在您的例子中，p值是0.8327205496590723，非常接近于1。在统计学中，p值用于判断结果是否具有统计学意义。通常，如果p值小于0.05（或者您选择的显著性水平），则结果被认为是统计学上显著的，即不太可能是由随机变异引起的。在您的案例中，p值远大于0.05，意味着没有足够的证据拒绝零假设，零假设通常是指两个变量之间不存在相关性。因此，您可以得出结论，data["pe_ratio"]和data["pb_ratio"]之间的相关性很可能不具有统计学意义。
+简而言之，PearsonRResult输出的两个值告诉您，两个变量之间几乎没有相关性，且这一发现在统计学上不具有显著性。
+    """
     r1 = pearsonr(data["pe_ratio"], data["pb_ratio"])
     print("相关系数：\n", r1)
     r2 = pearsonr(data['revenue'], data['total_expense'])
@@ -208,7 +217,8 @@ def pca_demo():
     data = [[2,8,4,5], [6,3,0,8], [5,4,9,1]]
 
     # 1、实例化一个转换器类
-    transfer = PCA(n_components=0.95)
+    # transfer = PCA(n_components=2) # 降维到2维（减少到两个特征）
+    transfer = PCA(n_components=0.95) # 保留原有数据95%的特征（信息） 运行后降到了两个特征 意思是我能在降低两个维度的前提下保留原有95%的信息 非常不错
 
     # 2、调用fit_transform
     data_new = transfer.fit_transform(data)
