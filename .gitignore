@@ -1,2 +1,2 @@
-instacart
-FBlocation
+# 防止数据集太大超过github的单个文件默认最大容量
+*.csv
