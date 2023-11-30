@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, SGDRegressor, Ridge
 from sklearn.metrics import mean_squared_error
-from sklearn.externals import joblib
+import joblib
 
 
 def linear1():
@@ -56,7 +56,8 @@ def linear2():
     x_train = transfer.fit_transform(x_train)
     x_test = transfer.transform(x_test)
 
-    # 4）预估器
+    # 4）预估器 参数要满满不断试 来看结果learning_rate="constant", eta0=0.01, max_iter=10000, penalty="l1"
+    # penalty="l1 因为SGDRegressor方法 默认是实现l2的 也就相当于岭回归
     estimator = SGDRegressor(learning_rate="constant", eta0=0.01, max_iter=10000, penalty="l1")
     estimator.fit(x_train, y_train)
 
@@ -91,13 +92,13 @@ def linear3():
     x_test = transfer.transform(x_test)
 
     # 4）预估器
-    # estimator = Ridge(alpha=0.5, max_iter=10000)
-    # estimator.fit(x_train, y_train)
+    estimator = Ridge(alpha=0.5, max_iter=10000)
+    estimator.fit(x_train, y_train)
 
     # 保存模型
-    # joblib.dump(estimator, "my_ridge.pkl")
+    joblib.dump(estimator, "my_ridge.pkl")
     # 加载模型
-    estimator = joblib.load("my_ridge.pkl")
+    # estimator = joblib.load("my_ridge.pkl")
 
     # 5）得出模型
     print("岭回归-权重系数为：\n", estimator.coef_)
