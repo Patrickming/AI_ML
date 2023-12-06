@@ -62,6 +62,26 @@ def knn_iris():
     # 显示图形
     plt.show()
 
+    # 统计"platforms"特征的值计数
+    platforms_counts = steam_final['platforms'].value_counts()
+
+    # 设置图形大小
+    plt.figure(figsize=(6, 4))
+
+    # 画出特征图
+    platforms_counts.plot(kind='bar')
+
+    # 设置x轴标签
+    plt.xlabel('Value')
+
+    # 设置y轴范围为0到最大值的1.1倍
+    plt.ylim(0, platforms_counts.max() * 1.1)
+
+    # 添加标题
+    plt.title('Platforms Feature')
+
+    # 显示图形
+    plt.show()
 
 
 
