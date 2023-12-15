@@ -23,11 +23,19 @@ warnings.filterwarnings('ignore')
 matplotlib.use('TkAgg')
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
-df = pd.read_csv(r'steam.csv')
+df = pd.read_csv(r'D:\sl\projects\AIandML\AI_ML\steamForecast\steam.csv')
 
 df['release_date'] = (datetime.now() - pd.to_datetime(df['release_date'])).dt.days
 df['positive_rate'] = df['positive_ratings'] / (df['positive_ratings'] + df['negative_ratings'])
 df['owners'] = df['owners'].str.split('-').str[0].astype(int)
+
+# columns_to_drop = ['positive_ratings', 'negative_ratings']
+columns_to_drop = ['positive_ratings', 'negative_ratings',"appid","name"]
+# columns_to_drop = ['positive_ratings', 'negative_ratings', "developer", "publisher","platforms",'median_playtime', 'owners']
+# columns_to_drop = ['positive_ratings', 'negative_ratings',"english","appid","median_playtime"]
+df = df.drop(columns=columns_to_drop)
+# 导出数据集
+# df.to_csv('D:\sl\projects\AIandML\AI_ML\steamForecast\output_csv\steamtest2.csv', index=False)
 
 df['developer'] = LabelEncoder().fit_transform(df['developer'])
 df['publisher'] = LabelEncoder().fit_transform(df['publisher'])
@@ -35,14 +43,23 @@ df['steamspy_tags'] = LabelEncoder().fit_transform(df['steamspy_tags'])
 df['platforms'] = LabelEncoder().fit_transform(df['platforms'])
 df['categories'] = LabelEncoder().fit_transform(df['categories'])
 df['genres'] = LabelEncoder().fit_transform(df['genres'])
+# df['appid'] = LabelEncoder().fit_transform(df['appid'])
+# df['name'] = LabelEncoder().fit_transform(df['name'])
 
-columns_to_drop = ['appid', 'english', 'name', 'required_age', 'positive_ratings', 'negative_ratings']
-df = df.drop(columns=columns_to_drop)
+df['positive_rate'] = (df['positive_rate'] >= 0.90)
+df['isravePositive'] = df['positive_rate']
+df['isravePositive'] = LabelEncoder().fit_transform(df['isravePositive'])
+drop2 = ['positive_rate']
+df = df.drop(columns=drop2)
 
-df['positive_rate'] = (df['positive_rate'] >= 0.97)
-df['positive_rate'] = LabelEncoder().fit_transform(df['positive_rate'])
-y = df['positive_rate']
-X = df.drop(columns=['positive_rate'])
+# df.to_csv('D:\sl\projects\AIandML\AI_ML\steamForecast\output_csv\oldsteam.csv', index=False)
+
+
+y = df['isravePositive']
+X = df.drop(columns=['isravePositive'])
+
+# df.to_csv('D:\sl\projects\AIandML\AI_ML\steamForecast\output_csv\steamfinal.csv', index=False)
+
 
 X = np.array(X)
 y = np.array(y)
